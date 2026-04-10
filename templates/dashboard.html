@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | Notes Sharing Platform{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <h1>Your Dashboard</h1>
+    <p>Manage your private and public notes from one place.</p>
+  </div>
+  <a class="secondary-btn" href="{{ url_for('public_feed') }}">View Public Feed</a>
+</section>
+
+<section class="grid-two">
+  <article class="card">
+    <h2>Create note</h2>
+    <form method="post" class="stack-form">
+      <label>
+        Title
+        <input type="text" name="title" required>
+      </label>
+      <label>
+        Content
+        <textarea name="content" rows="7" required></textarea>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" name="is_public">
+        Make this note public
+      </label>
+      <button type="submit" class="primary-btn">Create note</button>
+    </form>
+  </article>
+
+  <article class="card">
+    <h2>Your notes</h2>
+    {% if notes %}
+      <div class="notes-list">
+        {% for note in notes %}
+          <article class="note-card">
+            <div class="note-head">
+              <h3>{{ note.title }}</h3>
+              <span class="badge">{{ 'Public' if note.is_public else 'Private' }}</span>
+            </div>
+            <p class="note-content">{{ note.content }}</p>
+            <div class="note-actions">
+              <button type="button" class="secondary-btn" data-edit-target="edit-{{ note.id }}">Edit</button>
+              <form method="post" action="{{ url_for('delete_note', note_id=note.id) }}" class="inline-form" data-confirm-delete>
+                <button type="submit" class="danger-btn">Delete</button>
+              </form>
+            </div>
+
+            <form id="edit-{{ note.id }}" method="post" action="{{ url_for('edit_note', note_id=note.id) }}" class="stack-form edit-form hidden">
+              <label>
+                Title
+                <input type="text" name="title" value="{{ note.title }}" required>
+              </label>
+              <label>
+                Content
+                <textarea name="content" rows="6" required>{{ note.content }}</textarea>
+              </label>
+              <label class="checkbox-row">
+                <input type="checkbox" name="is_public" {% if note.is_public %}checked{% endif %}>
+                Make this note public
+              </label>
+              <button type="submit" class="primary-btn">Save changes</button>
+            </form>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="muted">You have not created any notes yet.</p>
+    {% endif %}
+  </article>
+</section>
+{% endblock %}

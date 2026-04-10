@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Register | Notes Sharing Platform{% endblock %}
+{% block content %}
+<section class="card auth-card">
+  <h1>Create account</h1>
+  <p>Register with your email and password, then verify the OTP sent to your inbox.</p>
+  <form method="post" class="stack-form">
+    <label>
+      Email
+      <input type="email" name="email" required autocomplete="email">
+    </label>
+    <label>
+      Password
+      <input type="password" name="password" required autocomplete="new-password">
+    </label>
+    <button type="submit" class="primary-btn">Send OTP</button>
+  </form>
+  <p class="muted">Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+</section>
+{% endblock %}

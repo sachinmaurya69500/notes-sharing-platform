@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Verify OTP | Notes Sharing Platform{% endblock %}
+{% block content %}
+<section class="card auth-card">
+  <h1>Verify OTP</h1>
+  <p>Enter the 6-digit code sent to {{ email }}.</p>
+  <form method="post" class="stack-form">
+    <label>
+      OTP
+      <input type="text" name="otp" inputmode="numeric" maxlength="6" required>
+    </label>
+    <button type="submit" class="primary-btn">Verify account</button>
+  </form>
+</section>
+{% endblock %}

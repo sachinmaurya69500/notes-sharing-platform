@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Public Feed | Notes Sharing Platform{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <h1>Public Feed</h1>
+    <p>Browse notes shared publicly by all users.</p>
+  </div>
+  <a class="secondary-btn" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</section>
+
+<section class="card">
+  {% if notes %}
+    <div class="notes-list">
+      {% for note in notes %}
+        <article class="note-card">
+          <div class="note-head">
+            <h3>{{ note.title }}</h3>
+            <span class="badge">Public</span>
+          </div>
+          <p class="muted">By {{ users_by_id.get(note.owner_id, 'Unknown user') }}</p>
+          <p class="note-content">{{ note.content }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="muted">No public notes yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Login | Notes Sharing Platform{% endblock %}
+{% block content %}
+<section class="card auth-card">
+  <h1>Welcome back</h1>
+  <p>Log in to manage your notes and browse the public feed.</p>
+  <form method="post" class="stack-form">
+    <label>
+      Email
+      <input type="email" name="email" required autocomplete="email">
+    </label>
+    <label>
+      Password
+      <input type="password" name="password" required autocomplete="current-password">
+    </label>
+    <button type="submit" class="primary-btn">Log in</button>
+  </form>
+  <p class="muted">Need an account? <a href="{{ url_for('register') }}">Register</a></p>
+</section>
+{% endblock %}
